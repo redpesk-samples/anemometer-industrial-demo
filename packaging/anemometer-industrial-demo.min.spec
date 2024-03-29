@@ -1,14 +1,3 @@
-%global binary          anemometer-industrial-demo
-%global service         %{binary}.service
-%global modbusconfsimu  modbus-config-simu.json
-%global modbusconf      modbus-config.json
-%global confdir         %{_sysconfdir}/gateway
-%global afmdatadir      /var/local/lib/afm/applications
-%global modbusbinding   modbus-binding
-%global composerbinding signal-composer-binding
-%global redisconf       redis.conf
-
-
 Name: anemometer-industrial-demo
 Version: 0.0.0
 Release: 0%{?dist}
@@ -24,3 +13,16 @@ Requires:       redis-tsdb-binding
 Requires:       afb-libpython
 Requires:       modbus-binding-simulation
 
+%description
+
+%prep
+
+%build
+
+%install
+
+%clean
+
+%files
+
+%changelog
