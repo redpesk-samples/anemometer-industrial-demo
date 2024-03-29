@@ -1,0 +1,52 @@
+{
+    "binding": [
+        "/usr/local/redpesk/modbus-binding/lib/modbus-binding.so"
+    ],
+    "set": {
+        "modbus-binding.so": {
+            "$schema": "http://iot.bzh/download/public/schema/json/ctl-schema.json",
+            "metadata": {
+                "uid": "modbus-svc",
+                "version": "2.0",
+                "api": "modbus",
+                "info": "Generic KingPigeon default 10.18.2.40:502 slaveid=1 Test Config"
+            },
+            "modbus": [
+                {
+                    "uid": "King-Pigeon-MT230",
+                    "info": "King Pigeon 'MT230' Modbus TCP Remote I/O Module",
+                    "uri": "tcp://127.0.0.1:5003",
+                    "slaveid": 1,
+                    "timeout": 250,
+                    "autostart": 1,
+                    "prefix": "mt230",
+                    "privilege": "global privilege",
+                    "hertz": 1,
+                    "sensors": [
+                        {
+                            "uid": "mp1",
+                            "type": "Register_Holding",
+                            "format": "UINT16",
+                            "register": 6,
+                            "count": 1
+                        },
+                        {
+                            "uid": "mp2",
+                            "type": "Register_Holding",
+                            "format": "UINT16",
+                            "register": 7,
+                            "count": 1
+                        },
+                        {
+                            "uid": "mp15",
+                            "type": "Register_Holding",
+                            "format": "UINT16",
+                            "register": 15,
+                            "count": 1
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
