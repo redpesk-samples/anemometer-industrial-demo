@@ -1,16 +1,15 @@
-%global binary          anemometer-industrial-demo
+%global binary          anemometer_industrial_demo.py
 %global service         %{binary}.service
-%global modbusconfsimu  modbus-config-simu.json
-%global modbusconf      modbus-config.json
+%global modbusconfsimu  anemometer_simu.json
+%global modbusconf      anemometer.json
 %global confdir         %{_sysconfdir}/gateway
 %global afmdatadir      /var/local/lib/afm/applications
 %global modbusbinding   modbus-binding
-%global composerbinding signal-composer-binding
 %global redisconf       redis.conf
 
 
 Name: anemometer-industrial-demo
-Version: 0.0.0
+Version: 1.0.0
 Release: 0%{?dist}
 Summary: Configuration package having all the configuration files for the industrial demo and a script
 
@@ -19,9 +18,6 @@ URL: http://git.ovh.iot/redpesk/redpesk-samples/anemometer-industrial-demo
 Source0: %{name}-%{version}.tar.gz
 BuildArch: noarch
 
-BuildRequires:  afm-rpm-macros
-BuildRequires:  afb-cmake-modules
-BuildRequires:  pkgconfig(libsystemd) >= 222
 Requires:       modbus-binding
 Requires:       redis-tsdb-binding
 Requires:       afb-libpython
@@ -32,20 +28,9 @@ Requires:       afb-libpython
 
 %package simulation
 Summary:        Use Modbus simulator
-BuildRequires:  afm-rpm-macros
-BuildRequires:  cmake
-BuildRequires:  afb-cmake-modules
-BuildRequires:  gcc-c++
-BuildRequires:  kernel-headers
-BuildRequires:  json-c-devel
-BuildRequires:  pkgconfig(afb-libhelpers)
-BuildRequires:  signal-composer-binding-devel
-BuildRequires:  pkgconfig(libsystemd) >= 222
-BuildRequires:  libuuid-devel
-Requires:       signal-composer-plugin-industrial-demo
 Requires:       modbus-binding
 Requires:       redis-tsdb-binding
-Requires:       signal-composer-binding
+Requires:       afb-libpython
 Requires:       modbus-binding-simulation
 
 %description simulation
@@ -56,7 +41,7 @@ Package which uses modbus binding simulation
 
 
 %install
-install -Dm755 bin/%{binary} %{buildroot}%{_bindir}/%{binary}
+install -Dm755 %{binary} %{buildroot}%{_bindir}/%{binary}
 #install -Dm644 systemd/%{service} %{buildroot}%{_unitdir}/%{service}
 install -Dm644 configs/%{modbusconf} %{buildroot}%{confdir}/%{modbusconf}
 install -Dm644 configs/%{modbusconfsimu} %{buildroot}%{confdir}/%{modbusconfsimu}
