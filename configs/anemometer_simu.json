@@ -1,0 +1,40 @@
+{
+    "modbus-binding.so": {
+        "$schema": "http://iot.bzh/download/public/schema/json/ctl-schema.json",
+        "metadata": {
+            "uid": "modbus-svc",
+            "version": "2.0",
+            "api": "modbus",
+            "info": "Simulated KingPigeon Modbus M100T config"
+        },
+        "modbus": [
+            {
+                "uid": "King-Pigeon-M100T",
+                "info": "King Pigeon 'M100T' Modbus TCP Remote I/O Module",
+                "uri": "tcp://127.0.0.1:5003",
+                "slaveid": 1,
+                "timeout": 250,
+                "autostart": 1,
+                "prefix": "m100t",
+                "privilege": "global privilege",
+                "hertz": 1,
+                "sensors": [
+                    {
+                        "uid": "sin",
+                        "type": "Register_Holding",
+                        "format": "UINT16",
+                        "register": 7,
+                        "count": 1
+                    },
+                    {
+                        "uid": "cos",
+                        "type": "Register_Holding",
+                        "format": "UINT16",
+                        "register": 15,
+                        "count": 1
+                    }
+                ]
+            }
+        ]
+    }
+}
