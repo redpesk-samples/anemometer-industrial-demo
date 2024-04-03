@@ -11,12 +11,12 @@
 Name: anemometer-industrial-demo
 Version: 1.0.0
 Release: 0%{?dist}
-Summary: Configuration package having all the configuration files for the industrial demo and a script
+Summary: A small binding that connects a Modbus device to a Redis timeseries
 
 License: APL2.0
 URL: http://git.ovh.iot/redpesk/redpesk-samples/anemometer-industrial-demo
 Source0: %{name}-%{version}.tar.gz
-BuildArch: x86_64
+BuildArch: noarch
 
 Requires:       modbus-binding
 Requires:       redis-tsdb-binding
@@ -27,7 +27,7 @@ Requires:       afb-libpython
 %summary
 
 %package simulation
-Summary:        Use Modbus simulator
+Summary:        A small binding that connects a Modbus device to a Redis timeseries - package for the Modbus simulation
 Requires:       modbus-binding
 Requires:       redis-tsdb-binding
 Requires:       afb-libpython
