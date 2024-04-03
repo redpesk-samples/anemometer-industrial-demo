@@ -16,7 +16,7 @@ Summary: Configuration package having all the configuration files for the indust
 License: APL2.0
 URL: http://git.ovh.iot/redpesk/redpesk-samples/anemometer-industrial-demo
 Source0: %{name}-%{version}.tar.gz
-BuildArch: noarch
+BuildArch: x86_64
 
 Requires:       modbus-binding
 Requires:       redis-tsdb-binding
