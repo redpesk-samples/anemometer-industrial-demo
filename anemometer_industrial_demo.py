@@ -9,25 +9,12 @@ import _afbpyglue as libafb
 
 class ComputationBinding:
     def __init__(self, binding_config: dict):
-        config = {
-            "redis-binding.so": {
-                "$schema": "http://iot.bzh/download/public/schema/json/ctl-schema.json",
-                "metadata": {
-                    "uid": "Redis Binding",
-                    "version": "1.0",
-                    "api": "redis",
-                    "info": "Redis Client binding",
-                },
-                "onload": [{"redis": {"hostname": "127.0.0.1", "port": 6379}}],
-            }
-        }
-        config.update(binding_config)
 
         binder = libafb.binder(
             {
                 "uid": "py-binder",
                 "verbose": 255,
-                "port": 9998,  # no httpd
+                "port": 9998,
                 "roothttp": ".",
                 "rootdir": ".",
                 "set": binding_config,
@@ -36,14 +23,14 @@ class ComputationBinding:
         modbus_binding = libafb.binding(
             {
                 "uid": "modbus",
-                "path": "/usr/local/redpesk/modbus-binding/lib/modbus-binding.so",
+                "path": "/usr/redpesk/modbus-binding/lib/modbus-binding.so",
             }
         )
 
         redis_binding = libafb.binding(
             {
                 "uid": "redis",
-                "path": "/usr/local/redpesk/redis-tsdb-binding/lib/redis-binding.so",
+                "path": "/usr/redpesk/redis-tsdb-binding/lib/redis-binding.so",
             }
         )
 
