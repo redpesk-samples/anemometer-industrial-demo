@@ -4,7 +4,7 @@ import datetime
 import json
 import math
 
-import _afbpyglue as libafb
+import libafb
 
 
 class ComputationBinding:
@@ -34,35 +34,27 @@ class ComputationBinding:
             }
         )
 
-        libafb.loopstart(binder, self._on_binder_init)
+        libafb.loopstart(binder, self.on_binder_init)
 
-    def _on_binder_init(self, binder, _):
+    def on_binder_init(self, binder, _):
         self._sin = None
         self._cos = None
         self._last_ts = 0
-
-        user_data = binder
 
         # the event handlers must live as long as the event callbacks
         # so we attach the return value of `evthandler` to self
         self._sin_handler = libafb.evthandler(
             binder,
             {"uid": "modbus", "pattern": "*/sin", "callback": self.on_sin_value},
-            user_data,
         )
         libafb.callsync(binder, "modbus", "m100t/sin", {"action": "subscribe"})
 
         self._cos_handler = libafb.evthandler(
             binder,
             {"uid": "modbus", "pattern": "*/cos", "callback": self.on_cos_value},
-            user_data,
         )
         libafb.callsync(binder, "modbus", "m100t/cos", {"action": "subscribe"})
 
-        return 0
-
-    def on_update_done(self, handle, status, _1, _2, error, error_msg, tag):
-        # print("CB", error_msg)
         return 0
 
     def update_direction(self, binder):
@@ -76,7 +68,7 @@ class ComputationBinding:
                 binder,
                 "redis",
                 "add",
-                self.on_update_done,
+                None,  # update callback,
                 None,  # context
                 {
                     "key": "wind_direction_deg",
@@ -89,11 +81,11 @@ class ComputationBinding:
 
     def on_sin_value(self, binder, event_name, user_data, value):
         self._sin = value
-        self.update_direction(user_data)
+        self.update_direction(binder)
 
     def on_cos_value(self, binder, event_name, user_data, value):
         self._cos = value
-        self.update_direction(user_data)
+        self.update_direction(binder)
 
 
 parser = argparse.ArgumentParser(
